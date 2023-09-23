@@ -1,11 +1,11 @@
 <script lang="ts">
     import {Game} from "$lib/game";
 
-    let game = new Game()
+    const game = new Game()
 </script>
 
-<h1 class="head">Mathe</h1>
-Score: {game.score()}
+<h1 class="head">Zahlen bis zum 10!</h1>
+{game.value}
 
 <style lang="postcss">
     .head {
