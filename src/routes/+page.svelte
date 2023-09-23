@@ -1,5 +1,5 @@
 <script lang="ts">
-    import {Game} from "$lib/upToTen";
+    import {Game} from "$lib/game";
 
     let game = new Game()
 </script>
