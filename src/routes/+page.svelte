@@ -5,9 +5,16 @@
     import Keypad from "$lib/components/Keypad.svelte";
 
     const game = new Game()
+    const start = Date.now()
 
     let value = game.value
+    let score = game.score
     let display: Display
+
+    setInterval(() => {
+        const elapsedSeconds = (Date.now() - start) / 1000
+        score = 50 * game.score / elapsedSeconds
+    }, 50)
 
     onMount(() => {
         game.onError = display.notifyError
@@ -15,7 +22,7 @@
 </script>
 
 <div class="container">
-    <Display bind:this={display} value={value}/>
+    <Display bind:this={display} value={value} score={score}/>
     <Keypad onClick={(v) => {
         game.tryAnswer(v);
         value = game.value
