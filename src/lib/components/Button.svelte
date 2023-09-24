@@ -1,10 +1,10 @@
 <script lang="ts">
-    export let value: string | number
-    export let onClick: (v: string | number) => void
+    export let value: number
+    export let onClick: (v: number) => void
 </script>
 
 <div class="container">
-    <button class="button" on:click={onClick(value)}>
+    <button class="button" on:click={() => onClick(value)}>
         {value}
     </button>
 </div>
