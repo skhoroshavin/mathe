@@ -11,15 +11,20 @@
     let showError = false
 </script>
 
-<div class="display" class:error={showError}>
-    {value}
+<div class="container">
+    <div class="display" class:error={showError}>{value}</div>
 </div>
 
 <style>
-    .display {
+    .container {
+        display: flex;
         width: 100%;
-        text-align: center;
-        font-size: 8rem;
+        height: 100%;
+    }
+
+    .display {
+        margin: auto;
+        font-size: 12rem;
         color: deepskyblue;
     }
 

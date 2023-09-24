@@ -34,8 +34,9 @@
         display: block;
         flex-grow: 1;
         background: mediumspringgreen;
-        font-size: 1.5rem;
+        font-size: 4rem;
         margin: 0.25rem;
+        padding: 0.5rem;
         border-radius: 0.5rem;
     }
 </style>
