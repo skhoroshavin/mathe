@@ -24,7 +24,10 @@
 
 <style>
     .container {
-        width: 100%;
+        display: flex;
+        flex-direction: column;
+        position: fixed;
+        inset: 0;
     }
 
     @media (min-width: 640px) {
