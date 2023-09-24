@@ -19,27 +19,8 @@
     }, 50)
 </script>
 
-<div class="container">
-    <Display bind:this={display} value={value} score={score}/>
-    <Keypad onClick={(v) => {
+<Display bind:this={display} value={value} score={score}/>
+<Keypad onClick={(v) => {
         game.tryAnswer(v);
         value = game.value
-    }}/>
-</div>
-
-<style>
-    .container {
-        display: flex;
-        flex-direction: column;
-        position: fixed;
-        inset: 0;
-    }
-
-    @media (min-width: 640px) {
-        .container {
-            width: 640px;
-            margin-left: auto;
-            margin-right: auto;
-        }
-    }
-</style>
+}}/>

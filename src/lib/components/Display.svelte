@@ -13,13 +13,15 @@
 </script>
 
 <div class="container">
-    <div class="score-container"><div class="score" style="height: {score}%"/></div>
     <div class="display" class:error={showError}>{value}</div>
-    <div class="score-container"><div class="score" style="height: {score}%"/></div>
+    <div class="score-container">
+        <div class="score" style="height: {score}%"/>
+    </div>
 </div>
 
 <style>
     .container {
+        position: relative;
         display: flex;
         align-items: center;
         width: 100%;
@@ -28,7 +30,8 @@
 
     .display {
         margin: auto;
-        font-size: 12rem;
+        font-size: calc(50 * var(--vw));
+        line-height: 0;
         color: deepskyblue;
     }
 
@@ -37,11 +40,12 @@
     }
 
     .score-container {
+        position: absolute;
+        right: calc(5 * var(--vw));
+
         display: flex;
         align-items: end;
-        width: 2rem;
-        margin-left: 1rem;
-        margin-right: 1rem;
+        width: calc(10 * var(--vw));
         height: 90%;
     }
 
