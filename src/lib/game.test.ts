@@ -1,10 +1,11 @@
-import {describe, it, expect, beforeEach} from 'vitest';
+import {describe, it, expect, beforeEach, vitest} from 'vitest';
 import {Game} from "$lib/game";
 
 describe('sum test', () => {
 	let game: Game
 	beforeEach(() => {
 		game = new Game()
+		game.onError = vitest.fn(() => {})
 	})
 
 	it("starts with zero score and value within 1..9", () => {
@@ -19,14 +20,23 @@ describe('sum test', () => {
 			game.tryAnswer(10 - prevValue)
 			expect(game.score).toBe(i+1)
 			expect(game.value).not.toBe(prevValue)
+			expect(game.onError).not.toHaveBeenCalled()
 		}
 	})
 
 	it("doesn't increase score or updates value when incorrect answer is provided", () => {
 		const prevValue = game.value
-		game.tryAnswer(10 - prevValue + 1)
+		const invalidAnswer = 11 - prevValue
+
+		game.tryAnswer(invalidAnswer)
 		expect(game.score).toBe(0)
 		expect(game.value).toBe(prevValue)
+		expect(game.onError).toHaveBeenCalledOnce()
+
+		game.tryAnswer(invalidAnswer)
+		expect(game.score).toBe(0)
+		expect(game.value).toBe(prevValue)
+		expect(game.onError).toHaveBeenCalledTimes(2)
 	})
 
 	it("always has value from 1 to 9", () => {

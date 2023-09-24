@@ -6,8 +6,13 @@ export class Game {
     _value = randomValue()
     get value() { return this._value }
 
+    onError?: () => void
+
     tryAnswer(v: number) {
         if(this.value + v != 10) {
+            if (this.onError != null) {
+                this.onError()
+            }
             return
         }
 
