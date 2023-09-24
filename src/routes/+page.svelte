@@ -5,20 +5,18 @@
     import Keypad from "$lib/components/Keypad.svelte";
 
     const game = new Game()
-    const start = Date.now()
 
     let value = game.value
     let score = game.score
     let display: Display
 
-    setInterval(() => {
-        const elapsedSeconds = (Date.now() - start) / 1000
-        score = 50 * game.score / elapsedSeconds
-    }, 50)
-
     onMount(() => {
         game.onError = display.notifyError
     })
+
+    setInterval(() => {
+        score = Math.min(100, 10 * game.score)
+    }, 50)
 </script>
 
 <div class="container">

@@ -1,5 +1,12 @@
 
 export class Game {
+    constructor() {
+        setInterval(() => {
+            const newScore = this._score - 0.025
+            this._score = Math.max(0, newScore)
+        }, 50)
+    }
+
     _score = 0
     get score() { return this._score}
 

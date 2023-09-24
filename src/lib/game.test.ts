@@ -1,7 +1,9 @@
 import {describe, it, expect, beforeEach, vitest} from 'vitest';
 import {Game} from "$lib/game";
 
-describe('sum test', () => {
+describe('up to ten game', () => {
+	vitest.useFakeTimers()
+
 	let game: Game
 	beforeEach(() => {
 		game = new Game()
@@ -47,5 +49,16 @@ describe('sum test', () => {
 		}
 		expect(Math.min(...values)).toBe(1)
 		expect(Math.max(...values)).toBe(9)
+	})
+
+	it("decreases score after time passes at half per second", () => {
+		for(let i = 0; i < 10; i++) {
+			const prevValue = game.value
+			game.tryAnswer(10 - prevValue)
+		}
+		expect(game.score).toBe(10)
+
+		vitest.advanceTimersByTime(1000)
+		expect(game.score).toBeCloseTo(9.5)
 	})
 })
