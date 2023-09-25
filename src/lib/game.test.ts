@@ -17,10 +17,24 @@ describe('up to ten game', () => {
 	})
 
 	it("increases score and updates value when correct answer is provided", () => {
-		for(let i = 0; i < 20; i++) {
+		for(let i = 0; i < 10; i++) {
 			const prevValue = game.value
 			game.tryAnswer(10 - prevValue)
-			expect(game.score).toBe(i+1)
+			expect(game.score).toBe(10*(i+1))
+			expect(game.value).not.toBe(prevValue)
+			expect(game.onError).not.toHaveBeenCalled()
+		}
+	})
+
+	it("score is clamped to 100", () => {
+		for(let i = 0; i < 10; i++) {
+			game.tryAnswer(10 - game.value)
+		}
+
+		for(let i = 0; i < 10; i++) {
+			const prevValue = game.value
+			game.tryAnswer(10 - prevValue)
+			expect(game.score).toBe(100)
 			expect(game.value).not.toBe(prevValue)
 			expect(game.onError).not.toHaveBeenCalled()
 		}
@@ -51,14 +65,42 @@ describe('up to ten game', () => {
 		expect(Math.max(...values)).toBe(9)
 	})
 
-	it("decreases score after time passes at half per second", () => {
-		for(let i = 0; i < 10; i++) {
-			const prevValue = game.value
-			game.tryAnswer(10 - prevValue)
-		}
+	it("reduce score over time", () => {
+		game.tryAnswer(10 - game.value)
 		expect(game.score).toBe(10)
 
-		vitest.advanceTimersByTime(1000)
-		expect(game.score).toBeCloseTo(9.5)
+		vitest.advanceTimersByTime(2000)
+		expect(game.score).toBe(9)
+
+		vitest.advanceTimersByTime(2000)
+		expect(game.score).toBe(8)
+	})
+
+	it("gives score 95 for 1 answer per second and keeps it", () => {
+		for(let i = 0; i < 20; i++) {
+			game.tryAnswer(10 - game.value)
+			vitest.advanceTimersByTime(1000)
+		}
+		expect(game.score).toBe(95)
+
+		for(let i = 0; i < 10; i++) {
+			game.tryAnswer(10 - game.value)
+			vitest.advanceTimersByTime(1000)
+			expect(game.score).toBe(95)
+		}
+	})
+
+	it("gives score 45 for 1 answer per 2 seconds and keeps it", () => {
+		for(let i = 0; i < 10; i++) {
+			game.tryAnswer(10 - game.value)
+			vitest.advanceTimersByTime(2000)
+		}
+		expect(game.score).toBe(45)
+
+		for(let i = 0; i < 5; i++) {
+			game.tryAnswer(10 - game.value)
+			vitest.advanceTimersByTime(2000)
+			expect(game.score).toBe(45)
+		}
 	})
 })

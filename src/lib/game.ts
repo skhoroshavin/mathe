@@ -1,17 +1,26 @@
 
 export class Game {
-    constructor() {
-        setInterval(() => {
-            const newScore = this._score - 0.025
-            this._score = Math.max(0, newScore)
-        }, 50)
-    }
-
-    _score = 0
-    get score() { return this._score}
-
     _value = randomValue()
     get value() { return this._value }
+
+    _answers: number[] = []
+    get score(): number {
+        let res = 0
+        const now = Date.now()
+        let filteredAnswers: number[] = []
+        for(const v of this._answers) {
+            const elapsedSeconds = (now - v) / 1000
+            const score = Math.max(0, 10 - 0.5 * elapsedSeconds)
+            if (score > 0) {
+                filteredAnswers = [...filteredAnswers, v]
+            }
+            res += score
+        }
+        this._answers = filteredAnswers
+        res = Math.max(0, res)
+        res = Math.min(100, res)
+        return res
+    }
 
     onError?: () => void
 
@@ -23,7 +32,7 @@ export class Game {
             return
         }
 
-        this._score += 1
+        this._answers = [...this._answers, Date.now()]
         const prevValue = this._value
         do {
             this._value = randomValue()

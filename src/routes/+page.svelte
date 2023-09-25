@@ -12,11 +12,13 @@
 
     onMount(() => {
         game.onError = display.notifyError
+        update()
     })
 
-    setInterval(() => {
-        score = Math.min(100, 10 * game.score)
-    }, 50)
+    function update() {
+        score = game.score
+        requestAnimationFrame(update)
+    }
 </script>
 
 <Display bind:this={display} value={value} score={score}/>
