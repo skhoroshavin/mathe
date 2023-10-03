@@ -19,11 +19,8 @@ jobs:
       - name: Install dependencies
         run: npm install
 
-      - name: Lint
-        run: npm run lint
-
       - name: Check
         run: npm run check
 
       - name: Test
-        run: npm run test:unit -- run
+        run: npm run test

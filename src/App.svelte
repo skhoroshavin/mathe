@@ -1,8 +1,8 @@
 <script lang="ts">
     import {onMount} from "svelte";
-    import {Game} from "$lib/game";
-    import Display from "$lib/components/Display.svelte";
-    import Keypad from "$lib/components/Keypad.svelte";
+    import {Game} from "./lib/game";
+    import Display from "./components/Display.svelte";
+    import Keypad from "./components/Keypad.svelte";
 
     const game = new Game()
 
@@ -21,7 +21,7 @@
     }
 </script>
 
-<Display bind:this={display} value={value} score={score}/>
+<Display bind:this={display} score={score} value={value}/>
 <Keypad onClick={(v) => {
         game.tryAnswer(v);
         value = game.value
