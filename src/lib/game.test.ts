@@ -1,5 +1,5 @@
 import {describe, it, expect, beforeEach, vitest} from 'vitest';
-import {Game} from "$lib/game";
+import {Game} from "./game";
 
 describe('up to ten game', () => {
 	vitest.useFakeTimers()
