@@ -6,19 +6,19 @@
 
 <div class="keypad">
     <div class="keypad-row">
-        <Button value={1} onClick={onClick}/>
-        <Button value={2} onClick={onClick}/>
-        <Button value={3} onClick={onClick}/>
+        <Button onClick={onClick} value={1}/>
+        <Button onClick={onClick} value={2}/>
+        <Button onClick={onClick} value={3}/>
     </div>
     <div class="keypad-row">
-        <Button value={4} onClick={onClick}/>
-        <Button value={5} onClick={onClick}/>
-        <Button value={6} onClick={onClick}/>
+        <Button onClick={onClick} value={4}/>
+        <Button onClick={onClick} value={5}/>
+        <Button onClick={onClick} value={6}/>
     </div>
     <div class="keypad-row">
-        <Button value={7} onClick={onClick}/>
-        <Button value={8} onClick={onClick}/>
-        <Button value={9} onClick={onClick}/>
+        <Button onClick={onClick} value={7}/>
+        <Button onClick={onClick} value={8}/>
+        <Button onClick={onClick} value={9}/>
     </div>
 </div>
 
