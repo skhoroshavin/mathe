@@ -1,21 +1,13 @@
 <script lang="ts">
-    export let value: string | number;
-    export let score: number = 0;
+    import type {GameView} from "../core/game";
 
-    export function notifyError() {
-        showError = true
-        setTimeout(() => {
-            showError = false
-        }, 500)
-    }
-
-    let showError = false
+    export let game: GameView
 </script>
 
 <div class="container">
-    <div class="display" class:error={showError}>{value}</div>
+    <div class="display" class:error={game.error}>{game.value}</div>
     <div class="score-container">
-        <div class="score" style="height: {score}%"/>
+        <div class="score" style="height: {game.score}%"/>
     </div>
 </div>
 

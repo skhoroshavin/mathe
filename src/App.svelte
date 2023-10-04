@@ -1,22 +1,10 @@
 <script lang="ts">
-    import {onMount} from "svelte";
-    import {Game} from "./lib/game";
     import Display from "./components/Display.svelte";
     import Keypad from "./components/Keypad.svelte";
+    import {makeGame} from "./stores/game";
 
-    const game = new Game()
-    let display: Display
-
-    onMount(() => {
-        game.onError = display.notifyError
-        update()
-    })
-
-    function update() {
-        game.tick()
-        requestAnimationFrame(update)
-    }
+    const game = makeGame()
 </script>
 
-<Display bind:this={display} score={$game.score} value={$game.value}/>
-<Keypad onClick={v => game.tryAnswer(v)}/>
+<Display game={$game}/>
+<Keypad onClick={v => game.answer(v)}/>
