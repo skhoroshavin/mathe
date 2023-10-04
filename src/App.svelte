@@ -5,9 +5,6 @@
     import Keypad from "./components/Keypad.svelte";
 
     const game = new Game()
-
-    let value = game.value
-    let score = game.score
     let display: Display
 
     onMount(() => {
@@ -16,13 +13,10 @@
     })
 
     function update() {
-        score = game.score
+        game.tick()
         requestAnimationFrame(update)
     }
 </script>
 
-<Display bind:this={display} score={score} value={value}/>
-<Keypad onClick={(v) => {
-        game.tryAnswer(v);
-        value = game.value
-}}/>
+<Display bind:this={display} score={$game.score} value={$game.value}/>
+<Keypad onClick={v => game.tryAnswer(v)}/>

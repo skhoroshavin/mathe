@@ -40,7 +40,34 @@ export class Game {
             this._value = randomValue()
         } while (this._value == prevValue)
     }
+
+    get state(): GameState {
+        return {
+            value: this.value,
+            score: this.score,
+        }
+    }
+
+    tick() {
+        const state = this.state
+        this._subscribers.forEach(sub => sub(state))
+    }
+    subscribe(sub: GameSubscriber) {
+        this._subscribers.add(sub)
+        sub(this.state)
+        return () => {
+            this._subscribers.delete(sub)
+        }
+    }
+    private readonly _subscribers = new Set<GameSubscriber>()
 }
+
+interface GameState {
+    value: number
+    score: number
+}
+
+type GameSubscriber = (s: GameState) => void
 
 const randomValue = () => {
     return 1 + Math.floor(Math.random() * 9)
