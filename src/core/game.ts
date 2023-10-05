@@ -1,3 +1,6 @@
+import type {Answer} from "./answer";
+
+import {makeRightAnswer, makeWrongAnswer} from "./answer"
 
 export interface GameView {
     readonly value: number
@@ -16,7 +19,7 @@ export function makeGameView(state: GameState, now: number): GameView {
 
 export interface GameState {
     value: number
-    answers: number[]
+    answers: Answer[]
     error: number
 }
 
@@ -32,6 +35,7 @@ export function answer(state: GameState, value: number, now: number): GameState 
     if (state.value + value != 10) {
         return {
             ...state,
+            answers: addAnswer(state.answers, now, makeWrongAnswer(now)),
             error: now
         }
     }
@@ -39,26 +43,21 @@ export function answer(state: GameState, value: number, now: number): GameState 
     return {
         ...state,
         value: newValue(state.value),
-        answers: addAnswer(state.answers, now),
+        answers: addAnswer(state.answers, now, makeRightAnswer(now)),
     }
 }
 
-function totalScore(answers: number[], now: number): number {
-    return answers
-        .map(answer => score(answer, now))
-        .reduce((prev, next) => prev + next, 0)
+function totalScore(answers: Answer[], now: number): number {
+    return Math.max(0, answers
+        .map(answer => answer.score(now))
+        .reduce((prev, next) => prev + next, 0))
 }
 
-function addAnswer(answers: number[], now: number): number[] {
+function addAnswer(answers: Answer[], now: number, answer: Answer): Answer[] {
     return [
-        ...answers.filter(v => score(v, now) > 0),
-        now
+        ...answers.filter(v => v.score(now) != 0),
+        answer,
     ]
-}
-
-function score(answer: number, now: number): number {
-    const elapsedSeconds = (now - answer) / 1000
-    return Math.max(0, 10 - 0.5 * elapsedSeconds)
 }
 
 function newValue(prev: number): number {
