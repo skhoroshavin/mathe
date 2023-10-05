@@ -1,31 +1,33 @@
 import {beforeEach, describe, expect, it, vitest} from 'vitest';
+import {Game} from "./game";
 
 describe('up to ten game', () => {
-    // vitest.useFakeTimers()
-    //
-    // let game: Game
-    // beforeEach(() => {
-    //     game = new Game()
-    //     game.onError = vitest.fn(() => {
-    //     })
-    // })
-    //
-    // it("starts with zero score and value within 1..9", () => {
-    //     expect(game.score).toBe(0)
-    //     expect(game.value).toBeGreaterThanOrEqual(1)
-    //     expect(game.value).toBeLessThanOrEqual(9)
-    // })
-    //
-    // it("increases score and updates value when correct answer is provided", () => {
-    //     for (let i = 0; i < 10; i++) {
-    //         const prevValue = game.value
-    //         game.tryAnswer(10 - prevValue)
-    //         expect(game.score).toBe(10 * (i + 1))
-    //         expect(game.value).not.toBe(prevValue)
-    //         expect(game.onError).not.toHaveBeenCalled()
-    //     }
-    // })
-    //
+    vitest.useFakeTimers()
+
+    let game: Game
+    beforeEach(() => {
+        game = new Game()
+    })
+
+    it("starts with zero score and value within 1..9", () => {
+        const view = game.getView()
+
+        expect(view.score).toBe(0)
+        expect(view.value).toBeGreaterThanOrEqual(1)
+        expect(view.value).toBeLessThanOrEqual(9)
+    })
+
+    it("increases score and updates value when correct answer is provided", () => {
+        for (let i = 0; i < 10; i++) {
+            const prevValue = game.getView().value
+            game.answer(10 - prevValue)
+
+            const view = game.getView()
+            expect(view.score).toBeGreaterThan(0)
+            expect(view.value).not.toBe(prevValue)
+        }
+    })
+
     // it("score is clamped to 100", () => {
     //     for (let i = 0; i < 10; i++) {
     //         game.tryAnswer(10 - game.value)
