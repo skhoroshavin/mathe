@@ -1,63 +1,44 @@
-import type {Answer} from "./answer";
 
-import {makeRightAnswer, makeWrongAnswer} from "./answer"
+import {Score} from "./score";
 
 export interface GameView {
-    readonly value: number
-    readonly score: number
-    readonly error: boolean
-}
-
-export function makeGameView(state: GameState, now: number): GameView {
-    console.log(state)
-    return {
-        value: state.value,
-        score: totalScore(state.answers, now),
-        error: now - state.error < 500,
-    }
-}
-
-export interface GameState {
     value: number
-    answers: Answer[]
-    error: number
+    score: number
+    error: boolean
 }
 
-export function makeGameState(): GameState {
-    return {
-        value: randomValue(),
-        answers: [],
-        error: 0,
-    }
-}
-
-export function answer(state: GameState, value: number, now: number): GameState {
-    if (state.value + value != 10) {
+export class Game {
+    getView(): GameView {
+        this.update()
         return {
-            ...state,
-            answers: addAnswer(state.answers, now, makeWrongAnswer(now)),
-            error: now
+            value: this._value,
+            score: this._score.get(),
+            error: (this._lastUpdate - this._error) < 500,
         }
     }
 
-    return {
-        ...state,
-        value: newValue(state.value),
-        answers: addAnswer(state.answers, now, makeRightAnswer(now)),
+    answer(value: number) {
+        if (this._value + value != 10) {
+            this._score.addMistake()
+            this._error = Date.now()
+            return
+        }
+
+        this._score.addCorrect()
+        this._value = newValue(this._value)
     }
-}
 
-function totalScore(answers: Answer[], now: number): number {
-    return Math.max(0, answers
-        .map(answer => answer.score(now))
-        .reduce((prev, next) => prev + next, 0))
-}
+    update() {
+        const now = Date.now()
+        const elapsedMillis = now - this._lastUpdate
+        this._score.update(elapsedMillis)
+        this._lastUpdate = now
+    }
 
-function addAnswer(answers: Answer[], now: number, answer: Answer): Answer[] {
-    return [
-        ...answers.filter(v => v.score(now) != 0),
-        answer,
-    ]
+    private _lastUpdate = Date.now()
+    private _value = randomValue()
+    private _score = new Score()
+    private _error = 0
 }
 
 function newValue(prev: number): number {
