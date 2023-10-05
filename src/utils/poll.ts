@@ -1,4 +1,4 @@
-import {startUpdater} from "../core/updater";
+import {startUpdater} from "./updater";
 import {observable} from "./observable";
 import type {Readable} from "svelte/store";
 

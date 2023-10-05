@@ -1,7 +1,7 @@
 import type {Readable} from "svelte/store";
 import type {GameView} from "../core/game";
 import {Game} from "../core/game";
-import {poll} from "./poll";
+import {poll} from "../utils/poll";
 
 export interface GameStore extends Readable<GameView> {
     answer(v: number): void,
