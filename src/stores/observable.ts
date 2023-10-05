@@ -1,10 +1,10 @@
-import type {Subscriber} from "svelte/store";
+import type {Readable, Subscriber} from "svelte/store";
 
 type Emitter<T> = (event: T) => void
 type Starter<T> = (emit: Emitter<T>) => Stopper
 type Stopper = () => void
 
-export function observable<T>(start: Starter<T>) {
+export function observable<T>(start: Starter<T>): Readable<T> {
     const subscribers = new Set<Subscriber<T>>()
     let stop: Stopper | undefined
     let lastEvent: T | undefined
