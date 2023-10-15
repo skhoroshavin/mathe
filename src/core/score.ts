@@ -2,7 +2,7 @@
 export class Score {
 
     get() {
-        return this._value
+        return Math.round(this._value * 10) / 10
     }
 
     addCorrect() { this._increment(22.5) }

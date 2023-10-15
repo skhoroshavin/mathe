@@ -10,21 +10,18 @@ describe('up to ten game', () => {
     })
 
     it("starts with zero score and value within 1..9", () => {
-        const view = game.getView()
-
-        expect(view.score).toBe(0)
-        expect(view.value).toBeGreaterThanOrEqual(1)
-        expect(view.value).toBeLessThanOrEqual(9)
+        expect(game.score).toBe(0)
+        expect(game.value).toBeGreaterThanOrEqual(1)
+        expect(game.value).toBeLessThanOrEqual(9)
     })
 
     it("increases score and updates value when correct answer is provided", () => {
         for (let i = 0; i < 10; i++) {
-            const prevValue = game.getView().value
+            const prevValue = game.value
             game.answer(10 - prevValue)
 
-            const view = game.getView()
-            expect(view.score).toBeGreaterThan(0)
-            expect(view.value).not.toBe(prevValue)
+            expect(game.score).toBeGreaterThan(0)
+            expect(game.value).not.toBe(prevValue)
         }
     })
 

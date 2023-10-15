@@ -1,13 +1,13 @@
 <script lang="ts">
-    import type {GameView} from "../core/game";
-
-    export let game: GameView
+    export let value: number | string
+    export let score: number
+    export let hasError: boolean
 </script>
 
 <div class="container">
-    <div class="display" class:error={game.error}>{game.value}</div>
+    <div class="display" class:error={hasError}>{value}</div>
     <div class="score-container">
-        <div class="score" style="height: {game.score}%"/>
+        <div class="score" style="height: {score}%"/>
     </div>
 </div>
 
