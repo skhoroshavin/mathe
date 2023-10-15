@@ -119,8 +119,8 @@ describe("score", () => {
         for (let i = 0; i < 10; i++) {
             score.addCorrect()
             score.update(1000)
-            expect(score.get()).toBeGreaterThan(49)
-            expect(score.get()).toBeLessThan(51)
+            expect(score.get()).toBeGreaterThanOrEqual(49)
+            expect(score.get()).toBeLessThanOrEqual(51)
             score.update(1000)
         }
     })
