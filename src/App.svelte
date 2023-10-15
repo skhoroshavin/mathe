@@ -6,5 +6,5 @@
     const game = makeGame()
 </script>
 
-<Display game={$game}/>
-<Keypad onClick={v => game.answer(v)}/>
+<Display value={$game.value} score={$game.score} hasError={$game.hasError}/>
+<Keypad onClick={v => $game.answer(v)}/>

@@ -1,26 +1,15 @@
 
 import {Score} from "./score";
 
-export interface GameView {
-    value: number
-    score: number
-    error: boolean
-}
-
 export class Game {
-    getView(): GameView {
-        this.update()
-        return {
-            value: this._value,
-            score: this._score.get(),
-            error: (this._lastUpdate - this._error) < 500,
-        }
-    }
+    get value(): number { return this._value }
+    get score(): number { return this._score.get() }
+    get hasError(): boolean { return (this._lastUpdate - this._hasError) < 500 }
 
     answer(value: number) {
         if (this._value + value != 10) {
             this._score.addMistake()
-            this._error = Date.now()
+            this._hasError = Date.now()
             return
         }
 
@@ -38,7 +27,7 @@ export class Game {
     private _lastUpdate = Date.now()
     private _value = randomValue()
     private _score = new Score()
-    private _error = 0
+    private _hasError = 0
 }
 
 function newValue(prev: number): number {
