@@ -3,7 +3,9 @@ import Display from "./components/Display.tsx";
 import {Game} from "./core/game.ts";
 import {createSignal} from "solid-js";
 
-function App() {
+import type {JSXElement} from "solid-js";
+
+export default function App(): JSXElement {
     const [track, update] = createSignal(null, {equals: false} )
 
     const game = new Game()
@@ -28,5 +30,3 @@ function App() {
         </>
     )
 }
-
-export default App
