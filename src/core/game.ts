@@ -43,7 +43,7 @@ export class Game {
     private _hasError = 0
 }
 
-const randomTask = () => {
+const randomTask = (): Task => {
     const a = oneOf([1, 2, 3, 4, 6, 7, 8, 9])
     const b = oneOf([2, 4, 8])
     const c = a * b
@@ -72,5 +72,7 @@ const randomTask = () => {
             return new Task("", ` : ${b} = ${a}`, c.toString())
         case 11:
             return new Task("", ` : ${a} = ${b}`, c.toString())
+        default:
+            return new Task(`${a} * ${a} =`, "", (a * a).toString())
     }
 }
