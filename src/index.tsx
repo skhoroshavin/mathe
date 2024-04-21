@@ -3,7 +3,7 @@ import { render } from 'solid-js/web'
 
 import './normalize.css'
 import './index.css'
-import App from "./App";
+import App from "./app";
 
 const root = document.getElementById('root')
 
