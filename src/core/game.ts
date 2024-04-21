@@ -1,5 +1,5 @@
 
-import {Score} from "./score.ts";
+import {Score} from "./score";
 
 export class Game {
     get value(): number { return this._value }
