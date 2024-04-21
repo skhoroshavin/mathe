@@ -1,7 +1,7 @@
 import {beforeEach, describe, expect, it} from "vitest";
 import {Task, TaskResult} from "./task.ts"
 
-describe("multiplication task", () => {
+describe("task", () => {
     describe("2 * 3 = _", () => {
         let task: Task
         beforeEach(() => {

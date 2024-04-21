@@ -1,4 +1,3 @@
-
 export enum TaskResult {
     Done,
     Error,
@@ -31,7 +30,7 @@ export class Task {
 
     private _result(): string {
         let res = ""
-        for (let i=0; i != this._expectedResult.length; ++i) {
+        for (let i = 0; i != this._expectedResult.length; ++i) {
             if (i < this._correctDigits) {
                 res += this._expectedResult[i]
             } else {

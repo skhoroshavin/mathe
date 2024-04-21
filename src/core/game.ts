@@ -1,20 +1,33 @@
-
 import {Score} from "./score.ts";
+import {oneOf, someInteger} from "./random.ts";
+import {Task, TaskResult} from "./task.ts";
 
 export class Game {
-    get value(): number { return this._value }
-    get score(): number { return this._score.get() }
-    get hasError(): boolean { return (this._lastUpdate - this._hasError) < 500 }
+    get task(): string {
+        return this._task.text()
+    }
+
+    get score(): number {
+        return this._score.get()
+    }
+
+    get hasError(): boolean {
+        return (this._lastUpdate - this._hasError) < 500
+    }
 
     answer(value: number) {
-        if (this._value + value != 10) {
-            this._score.addMistake()
-            this._hasError = Date.now()
-            return
+        switch (this._task.input(value)) {
+            case TaskResult.Done:
+                this._score.addCorrect()
+                this._task = randomTask()
+                break
+            case TaskResult.Error:
+                this._score.addMistake()
+                this._hasError = Date.now()
+                break
+            default:
+                break
         }
-
-        this._score.addCorrect()
-        this._value = newValue(this._value)
     }
 
     update() {
@@ -25,18 +38,19 @@ export class Game {
     }
 
     private _lastUpdate = Date.now()
-    private _value = randomValue()
+    private _task = randomTask()
     private _score = new Score()
     private _hasError = 0
 }
 
-function newValue(prev: number): number {
-    let next
-    do { next = randomValue() }
-    while (next == prev)
-    return next
-}
-
-const randomValue = () => {
-    return 1 + Math.floor(Math.random() * 9)
+const randomTask = () => {
+    let a = oneOf([1, 2, 3, 4, 6, 7, 8, 9])
+    let b = oneOf([2, 4, 8])
+    const c = a * b
+    if (someInteger(2) > 0) {
+        const x = a
+        a = b
+        b = x
+    }
+    return new Task(`${a} * ${b} = `, "", c.toString())
 }
