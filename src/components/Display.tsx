@@ -1,6 +1,6 @@
 import styles from './Display.module.css'
 
-import {createEffect, JSXElement} from "solid-js";
+import {JSXElement} from "solid-js";
 
 interface Props {
     task: string
