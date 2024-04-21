@@ -1,9 +1,9 @@
 import styles from './Display.module.css'
 
-import type {JSXElement} from "solid-js";
+import {JSXElement} from "solid-js";
 
 interface Props {
-    value: string
+    task: string
     score: number
     hasError: boolean
 }
@@ -14,7 +14,7 @@ export default function Display(props: Props): JSXElement {
             [styles.display]: true,
             [styles.error]: props.hasError
         }}>
-            {props.value}
+            {props.task}
         </div>
         <div class={styles.scoreContainer}>
             <div class={styles.score} style={`height: ${props.score}%`}/>

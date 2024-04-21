@@ -4,7 +4,7 @@ import type {JSXElement} from "solid-js";
 
 interface Props {
     value: number
-    onClick: (v:number) => void
+    onClick: (v: number) => void
 }
 
 export default function Button(props: Props): JSXElement {
