@@ -43,14 +43,36 @@ export class Game {
     private _hasError = 0
 }
 
-const randomTask = () => {
-    let a = oneOf([1, 2, 3, 4, 6, 7, 8, 9])
-    let b = oneOf([2, 4, 8])
+const randomTask = (): Task => {
+    const a = oneOf([1, 2, 3, 4, 6, 7, 8, 9])
+    const b = oneOf([2, 4, 8])
     const c = a * b
-    if (someInteger(2) > 0) {
-        const x = a
-        a = b
-        b = x
+    switch (someInteger(12)) {
+        case 0:
+            return new Task(`${a} * ${b} = `, "", c.toString())
+        case 1:
+            return new Task(`${b} * ${a} = `, "", c.toString())
+        case 2:
+            return new Task(`${c} : ${a} = `, "", b.toString())
+        case 3:
+            return new Task(`${c} : ${b} = `, "", a.toString())
+        case 4:
+            return new Task(`${a} * `, ` = ${c}`, b.toString())
+        case 5:
+            return new Task(`${b} * `, ` = ${c}`, a.toString())
+        case 6:
+            return new Task(`${c} : `, ` = ${a}`, b.toString())
+        case 7:
+            return new Task(`${c} : `, ` = ${b}`, a.toString())
+        case 8:
+            return new Task("", ` * ${b} = ${c}`, a.toString())
+        case 9:
+            return new Task("", ` * ${a} = ${c}`, b.toString())
+        case 10:
+            return new Task("", ` : ${b} = ${a}`, c.toString())
+        case 11:
+            return new Task("", ` : ${a} = ${b}`, c.toString())
+        default:
+            return new Task(`${a} * ${a} =`, "", (a * a).toString())
     }
-    return new Task(`${a} * ${b} = `, "", c.toString())
 }

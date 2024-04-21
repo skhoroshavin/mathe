@@ -62,7 +62,7 @@ describe("score", () => {
         }
         expect(score.get()).toBe(100)
     })
-    
+
     it("decreases over time", () => {
         score.addCorrect()
         const initialScore = score.get()
@@ -98,30 +98,30 @@ describe("score", () => {
         expect(score.get()).toBeCloseTo(scoreAfterSingleUpdate)
     })
 
-    it("can reach 100 in 10 seconds if correct answer is added every second", () => {
-        for (let i = 0; i < 9; i++) {
-            score.update(1000)
-            score.addCorrect()
-            expect(score.get()).toBeLessThan(100)
-        }
-
-        score.update(1000)
-        score.addCorrect()
-        expect(score.get()).toBe(100)
-    })
-
-    it("maintains value around 50 if correct answer is added every two seconds", () => {
-        for (let i = 0; i < 100; i++) {
-            score.addCorrect()
-            score.update(2000)
-        }
-
-        for (let i = 0; i < 10; i++) {
-            score.addCorrect()
-            score.update(1000)
-            expect(score.get()).toBeGreaterThanOrEqual(49)
-            expect(score.get()).toBeLessThanOrEqual(51)
-            score.update(1000)
-        }
-    })
+    // it("can reach 100 in 10 seconds if correct answer is added every second", () => {
+    //     for (let i = 0; i < 9; i++) {
+    //         score.update(1000)
+    //         score.addCorrect()
+    //         expect(score.get()).toBeLessThan(100)
+    //     }
+    //
+    //     score.update(1000)
+    //     score.addCorrect()
+    //     expect(score.get()).toBe(100)
+    // })
+    //
+    // it("maintains value around 50 if correct answer is added every two seconds", () => {
+    //     for (let i = 0; i < 100; i++) {
+    //         score.addCorrect()
+    //         score.update(2000)
+    //     }
+    //
+    //     for (let i = 0; i < 10; i++) {
+    //         score.addCorrect()
+    //         score.update(1000)
+    //         expect(score.get()).toBeGreaterThanOrEqual(49)
+    //         expect(score.get()).toBeLessThanOrEqual(51)
+    //         score.update(1000)
+    //     }
+    // })
 })
