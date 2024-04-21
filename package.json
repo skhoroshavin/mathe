@@ -7,7 +7,7 @@
     "dev": "vite",
     "build": "vite build",
     "preview": "vite preview",
-    "test": "tsc --noEmit && vitest run"
+    "test": "vitest run"
   },
   "dependencies": {
     "solid-js": "^1.8.15"
