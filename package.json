@@ -1,23 +1,23 @@
 {
   "name": "mathe",
-  "version": "0.0.1",
   "private": true,
+  "version": "0.0.0",
   "type": "module",
   "scripts": {
     "dev": "vite",
-    "build": "vite build",
+    "build": "tsc && vite build",
     "preview": "vite preview",
-    "check": "svelte-check --tsconfig ./tsconfig.json",
-    "test": "vitest"
+    "test": "vitest run"
+  },
+  "dependencies": {
+    "solid-js": "^1.8.15"
   },
   "devDependencies": {
-    "@sveltejs/vite-plugin-svelte": "^2.4.2",
-    "@tsconfig/svelte": "^5.0.0",
-    "svelte": "^4.0.5",
-    "svelte-check": "^3.4.6",
-    "tslib": "^2.6.0",
-    "typescript": "^5.0.2",
-    "vite": "^4.4.5",
-    "vitest": "^0.34.6"
+    "@types/node": "^20.12.7",
+    "jsdom": "^24.0.0",
+    "typescript": "^5.2.2",
+    "vite": "^5.2.0",
+    "vite-plugin-solid": "^2.10.2",
+    "vitest": "^1.5.0"
   }
 }

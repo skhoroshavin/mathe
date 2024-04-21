@@ -1,5 +1,5 @@
 import {afterEach, beforeEach, describe, expect, it, vi} from "vitest";
-import {Score} from "./score";
+import {Score} from "./score.ts";
 
 describe("score", () => {
     let score: Score
