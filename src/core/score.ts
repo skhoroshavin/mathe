@@ -1,12 +1,16 @@
-
 export class Score {
 
     get() {
         return Math.round(this._value * 10) / 10
     }
 
-    addCorrect() { this._increment(22.5) }
-    addMistake() { this._increment(-5) }
+    addCorrect() {
+        this._increment(22.5)
+    }
+
+    addMistake() {
+        this._increment(-5)
+    }
 
     update(elapsedMillis: number) {
         this._value *= Math.exp(-0.000219 * elapsedMillis)
