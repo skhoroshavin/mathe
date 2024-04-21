@@ -1,5 +1,5 @@
 import {beforeEach, describe, expect, it, vitest} from 'vitest';
-import {Game} from "./game";
+import {Game} from "./game.ts";
 
 describe('up to ten game', () => {
     vitest.useFakeTimers()
