@@ -47,7 +47,7 @@ const randomTask = (): Task => {
     const a = oneOf([1, 2, 3, 4, 6, 7, 8, 9])
     const b = oneOf([2, 4, 8])
     const c = a * b
-    switch (someInteger(12)) {
+    switch (someInteger(13)) {
         case 0:
             return new Task(`${a} * ${b} = ?`, c.toString())
         case 1:
@@ -72,7 +72,8 @@ const randomTask = (): Task => {
             return new Task(`? : ${b} = ${a}`, c.toString())
         case 11:
             return new Task(`? : ${a} = ${b}`, c.toString())
-        default:
+        case 12:
             return new Task(`${a} * ${a} = ?`, (a * a).toString())
     }
+    throw Error("should never get there")
 }
