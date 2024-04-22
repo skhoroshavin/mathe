@@ -5,7 +5,7 @@ describe("task", () => {
     describe("2 * 3 = _", () => {
         let task: Task
         beforeEach(() => {
-            task = new Task("2 * 3 = ", "", "6")
+            task = new Task("2 * 3 = ?", "6")
         })
 
         it("should have correct text", () => {
@@ -24,7 +24,7 @@ describe("task", () => {
     describe("8 * _ = 56", () => {
         let task: Task
         beforeEach(() => {
-            task = new Task("8 * ", " = 56", "7")
+            task = new Task("8 * ? = 56", "7")
         })
 
         it("should have correct text", () => {
@@ -43,7 +43,7 @@ describe("task", () => {
     describe("6 * 4 = __", () => {
         let task: Task
         beforeEach(() => {
-            task = new Task("6 * 4 = ", "", "24")
+            task = new Task("6 * 4 = ?", "24")
         })
 
         it("should have correct text", () => {
