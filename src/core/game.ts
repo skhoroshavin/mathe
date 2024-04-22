@@ -49,30 +49,30 @@ const randomTask = (): Task => {
     const c = a * b
     switch (someInteger(12)) {
         case 0:
-            return new Task(`${a} * ${b} = `, "", c.toString())
+            return new Task(`${a} * ${b} = ?`, c.toString())
         case 1:
-            return new Task(`${b} * ${a} = `, "", c.toString())
+            return new Task(`${b} * ${a} = ?`, c.toString())
         case 2:
-            return new Task(`${c} : ${a} = `, "", b.toString())
+            return new Task(`${c} : ${a} = ?`, b.toString())
         case 3:
-            return new Task(`${c} : ${b} = `, "", a.toString())
+            return new Task(`${c} : ${b} = ?`, a.toString())
         case 4:
-            return new Task(`${a} * `, ` = ${c}`, b.toString())
+            return new Task(`${a} * ? = ${c}`, b.toString())
         case 5:
-            return new Task(`${b} * `, ` = ${c}`, a.toString())
+            return new Task(`${b} * ? = ${c}`, a.toString())
         case 6:
-            return new Task(`${c} : `, ` = ${a}`, b.toString())
+            return new Task(`${c} : ? = ${a}`, b.toString())
         case 7:
-            return new Task(`${c} : `, ` = ${b}`, a.toString())
+            return new Task(`${c} : ? = ${b}`, a.toString())
         case 8:
-            return new Task("", ` * ${b} = ${c}`, a.toString())
+            return new Task(`? * ${b} = ${c}`, a.toString())
         case 9:
-            return new Task("", ` * ${a} = ${c}`, b.toString())
+            return new Task(`? * ${a} = ${c}`, b.toString())
         case 10:
-            return new Task("", ` : ${b} = ${a}`, c.toString())
+            return new Task(`? : ${b} = ${a}`, c.toString())
         case 11:
-            return new Task("", ` : ${a} = ${b}`, c.toString())
+            return new Task(`? : ${a} = ${b}`, c.toString())
         default:
-            return new Task(`${a} * ${a} =`, "", (a * a).toString())
+            return new Task(`${a} * ${a} = ?`, (a * a).toString())
     }
 }

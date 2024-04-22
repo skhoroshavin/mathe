@@ -5,10 +5,11 @@ export enum TaskResult {
 }
 
 export class Task {
-    constructor(start: string, end: string, expectedResults: string) {
+    constructor(text: string, expectedResult: string) {
+        const [start, end] = text.split("?")
         this._start = start
         this._end = end
-        this._expectedResult = expectedResults
+        this._expectedResult = expectedResult
         this._correctDigits = 0
     }
 
@@ -40,8 +41,8 @@ export class Task {
         return res
     }
 
-    private _start: string
-    private _end: string
-    private _expectedResult: string
+    private readonly _start: string
+    private readonly _end: string
+    private readonly _expectedResult: string
     private _correctDigits: number
 }
