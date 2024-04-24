@@ -1,7 +1,7 @@
 import {createSignal, JSXElement, onMount} from "solid-js";
-import {Game} from "./core/game";
 import Keypad from "./components/Keypad";
 import Display from "./components/Display";
+import {Game} from "./game/game.ts";
 
 export default function App(): JSXElement {
     const [track, update] = createSignal(null, {equals: false})
@@ -10,6 +10,10 @@ export default function App(): JSXElement {
     const task = () => {
         track();
         return game.task
+    }
+    const level = () => {
+        track()
+        return game.level
     }
     const score = () => {
         track();
@@ -32,7 +36,7 @@ export default function App(): JSXElement {
 
     return (
         <>
-            <Display task={task()} score={score()} hasError={hasError()}/>
+            <Display task={task()} level={level()} score={score()} hasError={hasError()}/>
             <Keypad onClick={v => {
                 game.answer(v)
                 update(null)

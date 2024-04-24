@@ -16,6 +16,10 @@ export class Score {
         this._value *= Math.exp(-0.0001 * elapsedMillis)
     }
 
+    reset() {
+        this._value = 0
+    }
+
     private _increment(value: number) {
         this._value += value
         if (this._value < 0) this._value = 0

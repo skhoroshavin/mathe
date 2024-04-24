@@ -1,10 +1,11 @@
 import styles from './Display.module.css'
 
-import {JSXElement} from "solid-js";
+import type {JSXElement} from "solid-js";
 
 interface Props {
     task: string
     score: number
+    level: number
     hasError: boolean
 }
 
@@ -15,6 +16,9 @@ export default function Display(props: Props): JSXElement {
             [styles.error]: props.hasError
         }}>
             {props.task}
+        </div>
+        <div class={styles.levelContainer}>
+            <div class={styles.level} style={`height: ${props.level}%`}/>
         </div>
         <div class={styles.scoreContainer}>
             <div class={styles.score} style={`height: ${props.score}%`}/>

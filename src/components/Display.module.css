@@ -17,6 +17,21 @@
     color: red;
 }
 
+.levelContainer {
+    position: absolute;
+    left: calc(5 * var(--vw));
+
+    display: flex;
+    align-items: end;
+    width: calc(10 * var(--vw));
+    height: 90%;
+}
+
+.level {
+    width: 100%;
+    background-color: mediumspringgreen;
+}
+
 .scoreContainer {
     position: absolute;
     right: calc(5 * var(--vw));
