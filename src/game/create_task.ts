@@ -1,33 +1,28 @@
-import {Task} from "./task.ts";
-import {oneOf, someInteger} from "./random.ts";
+import {Task} from "./core/task.ts";
+import {oneOf, someInteger} from "./core/random.ts";
 
-export const createTask = (level: number) => {
-    let l = level
-    if (l < 0) {
-        l = 0
-    }
-    if (l >= taskFactoryConfig.length) {
-        l = taskFactoryConfig.length - 1
-    }
-    let complexity = [l, l, l, l]
-    if (l < taskFactoryConfig.length - 1) {
-        complexity.push(l + 1)
-    }
-    if (l > 0) {
-        complexity.push(l - 1)
-        complexity.push(l - 1)
-    }
-    return randomTaskOfComplexity(oneOf(complexity))
-}
-
-const randomTaskOfComplexity = (complexity: number): Task => {
-    if (complexity >= taskFactoryConfig.length) {
-        complexity = taskFactoryConfig.length - 1
-    }
-    const cfg = oneOf(taskFactoryConfig[complexity])
+export const createTask = (complexity: number) => {
+    const realComplexity = randomizeComplexity(complexity)
+    const cfg = oneOf(taskFactoryConfig[realComplexity])
     const a = oneOf(cfg.a)
     const b = oneOf(cfg.b)
     return cfg.typ(a, b)
+}
+
+const randomizeComplexity = (complexity: number): number => {
+    const c = Math.min(
+        Math.max(0, complexity),
+        taskFactoryConfig.length - 1
+    )
+    let possibleComplexity = [c, c, c, c]
+    if (c < taskFactoryConfig.length - 1) {
+        possibleComplexity.push(c + 1)
+    }
+    if (c > 0) {
+        possibleComplexity.push(c - 1)
+        possibleComplexity.push(c - 1)
+    }
+    return oneOf(possibleComplexity)
 }
 
 type TaskType = (a: number, b: number) => Task

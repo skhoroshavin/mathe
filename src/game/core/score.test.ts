@@ -98,6 +98,15 @@ describe("score", () => {
         expect(score.get()).toBeCloseTo(scoreAfterSingleUpdate)
     })
 
+    it("reset sets score to zero again", () => {
+        score.addCorrect()
+        score.addCorrect()
+        score.addCorrect()
+
+        score.reset()
+        expect(score.get()).toBe(0)
+    })
+
     // it("can reach 100 in 10 seconds if correct answer is added every second", () => {
     //     for (let i = 0; i < 9; i++) {
     //         score.update(1000)
