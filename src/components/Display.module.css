@@ -17,32 +17,24 @@
     color: red;
 }
 
-.levelContainer {
+.gaugeContainer {
     position: absolute;
+
+    display: flex;
+    align-items: end;
+    width: calc(10 * var(--vw));
+    height: 90%;
+}
+
+.gaugeContainerLeft {
     left: calc(5 * var(--vw));
-
-    display: flex;
-    align-items: end;
-    width: calc(10 * var(--vw));
-    height: 90%;
 }
 
-.level {
-    width: 100%;
-    background-color: mediumspringgreen;
-}
-
-.scoreContainer {
-    position: absolute;
+.gaugeContainerRight {
     right: calc(5 * var(--vw));
-
-    display: flex;
-    align-items: end;
-    width: calc(10 * var(--vw));
-    height: 90%;
 }
 
-.score {
+.gauge {
     width: 100%;
     background-color: mediumspringgreen;
 }

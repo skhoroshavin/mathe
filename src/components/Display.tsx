@@ -17,11 +17,11 @@ export default function Display(props: Props): JSXElement {
         }}>
             {props.task}
         </div>
-        <div class={styles.levelContainer}>
-            <div class={styles.level} style={`height: ${props.level}%`}/>
+        <div class={`${styles.gaugeContainer} ${styles.gaugeContainerLeft}`}>
+            <div class={styles.gauge} style={`height: ${props.level}%`}/>
         </div>
-        <div class={styles.scoreContainer}>
-            <div class={styles.score} style={`height: ${props.score}%`}/>
+        <div class={`${styles.gaugeContainer} ${styles.gaugeContainerRight}`}>
+            <div class={styles.gauge} style={`height: ${props.score}%`}/>
         </div>
     </div>
 }
