@@ -13,7 +13,7 @@ export class Score {
     }
 
     update(elapsedMillis: number) {
-        this._value *= Math.exp(-0.0001 * elapsedMillis)
+        this._value *= Math.exp(-0.00005 * elapsedMillis)
     }
 
     reset() {
