@@ -7,10 +7,14 @@
 }
 
 .display {
+    --hud: var(--primary-light);
+
     margin: auto;
-    font-size: 4rem;
     line-height: 0;
-    color: deepskyblue;
+
+    font-size: 4rem;
+    color: var(--hud);
+    text-shadow: var(--hud) 0 0 2rem, var(--hud) 0 0 4rem, var(--hud) 0 0 8rem;
 }
 
 .error {
@@ -24,13 +28,6 @@
     align-items: end;
     width: 3rem;
     height: 90%;
-}
-
-.gaugeContainerLeft {
-    left: 1rem;
-}
-
-.gaugeContainerRight {
     right: 1rem;
 }
 

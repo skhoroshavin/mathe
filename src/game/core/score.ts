@@ -5,7 +5,7 @@ export class Score {
     }
 
     addCorrect() {
-        this._increment(22.5)
+        this._increment(10)
     }
 
     addMistake() {

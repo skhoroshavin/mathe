@@ -1,4 +1,7 @@
 :root {
+    --primary-dark: #022c22;
+    --primary-light: #6ee7b7;
+
     background-color: black;
     font-size: 3.2vw;
 }
