@@ -8,7 +8,7 @@
 
 .display {
     margin: auto;
-    font-size: calc(15 * var(--vw));
+    font-size: 4rem;
     line-height: 0;
     color: deepskyblue;
 }
@@ -22,16 +22,16 @@
 
     display: flex;
     align-items: end;
-    width: calc(10 * var(--vw));
+    width: 3rem;
     height: 90%;
 }
 
 .gaugeContainerLeft {
-    left: calc(5 * var(--vw));
+    left: 1rem;
 }
 
 .gaugeContainerRight {
-    right: calc(5 * var(--vw));
+    right: 1rem;
 }
 
 .gauge {

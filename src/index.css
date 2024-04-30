@@ -1,7 +1,7 @@
 :root {
     --primary-color: #00BFFFFF;
 
-    --vw: 1vw;
+    font-size: 3.2vw;
 }
 
 .container {
@@ -13,7 +13,7 @@
 
 @media (min-width: 500px) {
     :root {
-        --vw: 5px;
+        font-size: 16px;
     }
 
     .container {
