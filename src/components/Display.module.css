@@ -1,4 +1,6 @@
 .container {
+    --hud: var(--primary-light);
+
     position: relative;
     display: flex;
     align-items: center;
@@ -7,14 +9,12 @@
 }
 
 .display {
-    --hud: var(--primary-light);
-
     margin: auto;
     line-height: 0;
 
     font-size: 4rem;
     color: var(--hud);
-    text-shadow: var(--hud) 0 0 2rem, var(--hud) 0 0 4rem, var(--hud) 0 0 8rem;
+    text-shadow: var(--hud) 0 0 2rem, var(--hud) 0 0 4rem, var(--hud) 0 0 8rem, var(--hud) 0 0 12rem;
 }
 
 .error {
@@ -26,12 +26,18 @@
 
     display: flex;
     align-items: end;
-    width: 3rem;
+    width: 1rem;
     height: 90%;
-    right: 1rem;
+    right: 2rem;
+
+    background-color: var(--primary-dark);
+    border: 1px solid var(--primary-light);
+    box-shadow: inset 0 0 0.25rem var(--primary-light), 0 0 0.25rem var(--primary-light);
 }
 
 .gauge {
     width: 100%;
-    background-color: mediumspringgreen;
+
+    background-color: var(--primary-light);
+    box-shadow: 0 0 1rem 0.25rem var(--primary-light);
 }

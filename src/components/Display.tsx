@@ -10,12 +10,11 @@ interface Props {
 }
 
 export default function Display(props: Props): JSXElement {
-    return <div class={styles.container}>
-        <div style={{"--hud": getColor(props.score)}}
-             classList={{
-                 [styles.display]: true,
-                 [styles.error]: props.hasError
-             }}>
+    return <div class={styles.container} style={{"--hud": getColor(props.level)}}>
+        <div classList={{
+            [styles.display]: true,
+            [styles.error]: props.hasError
+        }}>
             {props.task}
         </div>
         <div class={`${styles.gaugeContainer} ${styles.gaugeContainerRight}`}>
