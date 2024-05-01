@@ -7,6 +7,10 @@ export default function App(): JSXElement {
     const [track, update] = createSignal(null, {equals: false})
 
     const game = new Game()
+    const now = () => {
+        track()
+        return Date.now()
+    }
     const task = () => {
         track();
         return game.task
@@ -36,7 +40,7 @@ export default function App(): JSXElement {
 
     return (
         <>
-            <Display task={task()} level={level()} score={score()} hasError={hasError()}/>
+            <Display task={task()} level={level()} score={score()} hasError={hasError()} now={now()}/>
             <Keypad onClick={v => {
                 game.answer(v)
                 update(null)

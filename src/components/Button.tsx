@@ -1,6 +1,6 @@
 import style from './Button.module.css'
 
-import type {JSXElement} from "solid-js";
+import {createSignal, JSXElement} from "solid-js";
 
 interface Props {
     value: number
@@ -8,8 +8,19 @@ interface Props {
 }
 
 export default function Button(props: Props): JSXElement {
+    const [active, setActive] = createSignal(false)
+
+    const activate = () => setActive(true)
+    const deactivate = () => setActive(false)
+
     return <div class={style.container}>
-        <button class={style.button} onClick={() => props.onClick(props.value)}>
+        <button onClick={() => props.onClick(props.value)}
+                onMouseDown={activate} onMouseUp={() => setTimeout(deactivate, 50)}
+                onTouchStart={activate} onTouchEnd={deactivate}
+                classList={{
+                    [style.button]: true,
+                    [style.active]: active()
+                }}>
             {props.value}
         </button>
     </div>

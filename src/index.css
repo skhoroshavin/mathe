@@ -1,7 +1,9 @@
 :root {
-    --primary-color: #00BFFFFF;
+    --primary-dark: #022c22;
+    --primary-light: #6ee7b7;
 
-    --vw: 1vw;
+    background-color: black;
+    font-size: 3.2vw;
 }
 
 .container {
@@ -13,7 +15,7 @@
 
 @media (min-width: 500px) {
     :root {
-        --vw: 5px;
+        font-size: 16px;
     }
 
     .container {

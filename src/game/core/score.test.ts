@@ -67,16 +67,17 @@ describe("score", () => {
         score.addCorrect()
         const initialScore = score.get()
 
-        score.update(1000)
+        score.update(3000)
         expect(score.get()).toBeLessThan(initialScore)
     })
 
     it("slows down decrease speed over time", () => {
         score.addCorrect()
+        score.addCorrect()
         const initialScore = score.get()
-        score.update(1000)
+        score.update(10000)
         const scoreAfterSecond = score.get()
-        score.update(1000)
+        score.update(10000)
         const scoreAfterTwoSeconds = score.get()
 
         const firstSecondDecrease = initialScore - scoreAfterSecond
@@ -87,13 +88,13 @@ describe("score", () => {
 
     it("decrease speed doesn't depend on update rate", () => {
         score.addCorrect()
-        score.update(1000)
+        score.update(3000)
         const scoreAfterSingleUpdate = score.get()
 
         score = new Score()
         score.addCorrect()
         for (let i = 0; i < 10; i++) {
-            score.update(100)
+            score.update(300)
         }
         expect(score.get()).toBeCloseTo(scoreAfterSingleUpdate)
     })

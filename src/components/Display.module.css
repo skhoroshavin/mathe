@@ -1,4 +1,6 @@
 .container {
+    --hud: var(--primary-light);
+
     position: relative;
     display: flex;
     align-items: center;
@@ -8,41 +10,74 @@
 
 .display {
     margin: auto;
-    font-size: calc(15 * var(--vw));
     line-height: 0;
-    color: deepskyblue;
+
+    font-size: 5rem;
+    color: var(--hud);
+    text-shadow: var(--hud) 0 0 2rem, var(--hud) 0 0 4rem, var(--hud) 0 0 8rem, var(--hud) 0 0 12rem;
+
+    transition: all 200ms ease-in-out;
 }
 
 .error {
-    color: red;
+    animation-name: shake;
+    animation-duration: 0.7s;
+    animation-iteration-count: infinite;
 }
 
-.levelContainer {
+.gaugeContainer {
     position: absolute;
-    left: calc(5 * var(--vw));
 
     display: flex;
     align-items: end;
-    width: calc(10 * var(--vw));
+    width: 1rem;
     height: 90%;
+    right: 2rem;
+
+    background-color: var(--primary-dark);
+    border: 1px solid var(--primary-light);
+    box-shadow: inset 0 0 0.25rem var(--primary-light), 0 0 0.25rem var(--primary-light);
 }
 
-.level {
+.gauge {
     width: 100%;
-    background-color: mediumspringgreen;
+
+    background-color: var(--primary-light);
+    box-shadow: 0 0 1rem 0.25rem var(--primary-light);
 }
 
-.scoreContainer {
-    position: absolute;
-    right: calc(5 * var(--vw));
-
-    display: flex;
-    align-items: end;
-    width: calc(10 * var(--vw));
-    height: 90%;
-}
-
-.score {
-    width: 100%;
-    background-color: mediumspringgreen;
+@keyframes shake {
+    0% {
+        transform: translate(1px, 1px) rotate(0deg);
+    }
+    10% {
+        transform: translate(-1px, -2px) rotate(-1deg);
+    }
+    20% {
+        transform: translate(-3px, 0px) rotate(1deg);
+    }
+    30% {
+        transform: translate(3px, 2px) rotate(0deg);
+    }
+    40% {
+        transform: translate(1px, -1px) rotate(1deg);
+    }
+    50% {
+        transform: translate(-1px, 2px) rotate(-1deg);
+    }
+    60% {
+        transform: translate(-3px, 1px) rotate(0deg);
+    }
+    70% {
+        transform: translate(3px, 1px) rotate(-1deg);
+    }
+    80% {
+        transform: translate(-1px, -1px) rotate(1deg);
+    }
+    90% {
+        transform: translate(1px, 2px) rotate(0deg);
+    }
+    100% {
+        transform: translate(1px, -2px) rotate(-1deg);
+    }
 }
