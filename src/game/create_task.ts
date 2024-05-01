@@ -37,15 +37,15 @@ const simpleMultiply: TaskType = (a: number, b: number): Task => {
     }
 }
 
-const simpleDivide: TaskType = (a: number, b: number): Task => {
-    const c = a * b
-    switch (someInteger(2)) {
-        case 0:
-            return new Task(`${c} : ${a} = ?`, b.toString())
-        default:
-            return new Task(`${c} : ${b} = ?`, a.toString())
-    }
-}
+// const simpleDivide: TaskType = (a: number, b: number): Task => {
+//     const c = a * b
+//     switch (someInteger(2)) {
+//         case 0:
+//             return new Task(`${c} : ${a} = ?`, b.toString())
+//         default:
+//             return new Task(`${c} : ${b} = ?`, a.toString())
+//     }
+// }
 
 const equationMultiply: TaskType = (a: number, b: number): Task => {
     const c = a * b
@@ -61,19 +61,19 @@ const equationMultiply: TaskType = (a: number, b: number): Task => {
     }
 }
 
-const equationDivide: TaskType = (a: number, b: number): Task => {
-    const c = a * b
-    switch (someInteger(4)) {
-        case 0:
-            return new Task(`${c} : ? = ${a}`, b.toString())
-        case 1:
-            return new Task(`${c} : ? = ${b}`, a.toString())
-        case 2:
-            return new Task(`? : ${b} = ${a}`, c.toString())
-        default:
-            return new Task(`? : ${a} = ${b}`, c.toString())
-    }
-}
+// const equationDivide: TaskType = (a: number, b: number): Task => {
+//     const c = a * b
+//     switch (someInteger(4)) {
+//         case 0:
+//             return new Task(`${c} : ? = ${a}`, b.toString())
+//         case 1:
+//             return new Task(`${c} : ? = ${b}`, a.toString())
+//         case 2:
+//             return new Task(`? : ${b} = ${a}`, c.toString())
+//         default:
+//             return new Task(`? : ${a} = ${b}`, c.toString())
+//     }
+// }
 
 interface FactoryConfig {
     typ: TaskType
