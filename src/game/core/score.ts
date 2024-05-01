@@ -5,15 +5,15 @@ export class Score {
     }
 
     addCorrect() {
-        this._increment(10)
+        this._increment(5)
     }
 
     addMistake() {
-        this._increment(-5)
+        this._increment(-3)
     }
 
     update(elapsedMillis: number) {
-        this._value *= Math.exp(-0.00005 * elapsedMillis)
+        this._value *= Math.exp(-0.00001 * elapsedMillis)
     }
 
     reset() {
