@@ -74,9 +74,9 @@ describe("score", () => {
     it("slows down decrease speed over time", () => {
         score.addCorrect()
         const initialScore = score.get()
-        score.update(1000)
+        score.update(2000)
         const scoreAfterSecond = score.get()
-        score.update(1000)
+        score.update(2000)
         const scoreAfterTwoSeconds = score.get()
 
         const firstSecondDecrease = initialScore - scoreAfterSecond
