@@ -29,7 +29,10 @@ export class Game {
                         this._complexity += 1
                     }
                 }
-                this._task = createTask(this._complexity)
+                const oldTask = this._task
+                do {
+                    this._task = createTask(this._complexity)
+                } while (this._task.equals(oldTask))
                 break
             case TaskResult.Error:
                 this._score.addMistake()

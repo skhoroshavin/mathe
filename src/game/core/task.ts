@@ -29,6 +29,12 @@ export class Task {
         }
     }
 
+    equals(other: Task) {
+        return this._start == other._start
+            && this._end == other._end
+            && this._expectedResult == other._expectedResult
+    }
+
     private _result(): string {
         let res = ""
         for (let i = 0; i != this._expectedResult.length; ++i) {
