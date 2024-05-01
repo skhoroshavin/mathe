@@ -1,7 +1,7 @@
 import styles from './Display.module.css'
 
 import {JSXElement} from "solid-js";
-import Starsky from "./Starsky.tsx";
+import Starsky from "./sky/Starsky.tsx";
 
 interface Props {
     task: string,
@@ -12,8 +12,10 @@ interface Props {
 }
 
 export default function Display(props: Props): JSXElement {
-    return <div class={styles.container} style={{"--hud": getColor(props.level)}}>
-        <Starsky speed={props.score} now={props.now}/>
+    const color = () => getColor(props.level)
+
+    return <div class={styles.container} style={{"--hud": color()}}>
+        <Starsky color={color()} speed={props.score} now={props.now}/>
         <div classList={{
             [styles.display]: true,
             [styles.error]: props.hasError

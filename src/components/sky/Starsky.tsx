@@ -1,9 +1,12 @@
 import styles from './Starsky.module.css'
 
 import {createEffect, createSignal, JSXElement} from "solid-js";
+import {Star} from "./Star.tsx";
+import {vec2} from "./vector.ts";
 
 interface Props {
-    speed: number,
+    color: string
+    speed: number
     now: number
 }
 
@@ -16,8 +19,9 @@ export default function Starsky(props: Props): JSXElement {
         prev = props.now
     })
 
-    return <svg width="100%" height="100%" viewBox="0 0 100 100" class={styles.container}>
-        {stars.stars.map(star => <path d={star.path} stroke="#7f7f7f" stroke-width="0.05rem"/>)}
+    return <svg width="100%" height="100%" viewBox="0 0 100 100"
+                class={styles.container} style={{"--star-color": props.color}}>
+        {stars.stars.map(star => <Star color={props.color} p0={star.p} r0={0.5} p1={star.pn} r1={0.5}/>)}
     </svg>
 }
 
@@ -25,7 +29,7 @@ class StarField {
     constructor() {
         this._stars = []
         for (let i = 0; i < 10; i++) {
-            this._stars.push(new Star())
+            this._stars.push(new StarCore())
         }
     }
 
@@ -38,62 +42,52 @@ class StarField {
         this._stars.forEach(star => star.update(speed, dt))
         this._stars = this._stars.filter(star => !star.isDead)
         while (this._stars.length < 10) {
-            this._stars.push(new Star())
+            this._stars.push(new StarCore())
         }
         this._signal[1](null)
     }
 
-    private _stars: Star[]
+    private _stars: StarCore[]
     private readonly _signal = createSignal(null, {equals: false})
 }
 
-class Star {
+class StarCore {
     constructor() {
         // Normalized starting position
-        const npx = Math.random() - 0.5
-        const npy = Math.random() - 0.5
+        const np = new vec2(Math.random() - 0.5, Math.random() - 0.5)
 
         // Starting position
-        this._px = 50 + 100 * npx
-        this._py = 50 + 100 * npy
+        this.p = new vec2(50 + 100 * np.x, 50 + 100 * np.y)
 
         // Starting velocity
         const vel = Math.random()
-        this._vx = npx * vel / Math.sqrt(npx * npx + npy * npy)
-        this._vy = npy * vel / Math.sqrt(npx * npx + npy * npy)
-    }
-
-    get path(): string {
-        return `M ${this._px} ${this._py} L ${this._pxn} ${this._pyn}`
+        this.v = np.normalized().mul(vel)
     }
 
     get isDead(): boolean {
-        if (this._px < -100) return true
-        if (this._py < -100) return true
-        if (this._px > 200) return true
-        return this._py > 200;
+        if (this.p.x < -100) return true
+        if (this.p.y < -100) return true
+        if (this.p.x > 200) return true
+        return this.p.y > 200;
     }
 
     update(speed: number, dt: number) {
         const move = speed * dt * 0.0005
-        this._px += move * this._vx
-        this._py += move * this._vy
-        this._vx *= 1 + 0.2 * move
-        this._vy *= 1 + 0.2 * move
+        this.p = this.p.add(this.v.mul(move))
+        this.v = this.v.mul(1 + 0.2 * move)
     }
 
-    private _px: number
-    private _py: number
-    private _vx: number
-    private _vy: number
+    p: vec2
+    private v: vec2
 
-    get _pxn() {
-        return this._px + normSpeed(this._vx)
+    get pn() {
+        const vn = new vec2(
+            normSpeed(this.v.x),
+            normSpeed(this.v.y)
+        )
+        return this.p.add(vn)
     }
 
-    get _pyn() {
-        return this._py + normSpeed(this._vy)
-    }
 }
 
 function normSpeed(v: number): number {
