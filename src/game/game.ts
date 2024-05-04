@@ -1,4 +1,4 @@
-import {Score} from "./core/score.ts";
+import {Score} from "./core/score";
 import {TaskResult} from "./core/task.ts";
 import {createTask} from "./create_task.ts";
 
@@ -21,7 +21,7 @@ export class Game {
 
     answer(value: number) {
         switch (this._task.input(value)) {
-            case TaskResult.Done:
+            case TaskResult.Done: {
                 this._score.addCorrect()
                 if (this._score.get() >= 100) {
                     this._score.reset()
@@ -34,10 +34,12 @@ export class Game {
                     this._task = createTask(this._complexity)
                 } while (this._task.equals(oldTask))
                 break
-            case TaskResult.Error:
+            }
+            case TaskResult.Error: {
                 this._score.addMistake()
                 this._hasError = Date.now()
                 break
+            }
             default:
                 break
         }

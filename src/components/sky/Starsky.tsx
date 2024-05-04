@@ -1,6 +1,5 @@
 import styles from './Starsky.module.css'
-
-import {createEffect, createSignal, JSXElement} from "solid-js";
+import {CSSProperties, useRef} from "react";
 import {Star} from "./Star.tsx";
 import {vec2} from "./vector.ts";
 
@@ -10,18 +9,14 @@ interface Props {
     now: number
 }
 
-export default function Starsky(props: Props): JSXElement {
-    let stars = new StarField()
+export default function Starsky(props: Props) {
+    const stars = useRef(new StarField())
 
-    let prev = props.now
-    createEffect(() => {
-        stars.update(props.speed, props.now - prev)
-        prev = props.now
-    })
+    stars.current.update(props.speed, props.now)
 
     return <svg width="100%" height="100%" viewBox="0 0 100 100"
-                class={styles.container} style={{"--star-color": props.color}}>
-        {stars.stars.map(star => <Star color={props.color} p0={star.p} r0={0.5} p1={star.pn} r1={0.5}/>)}
+                className={styles.container} style={{"--star-color": props.color} as CSSProperties}>
+        {stars.current.stars.map(star => <Star color={props.color} p0={star.p} r0={0.5} p1={star.pn} r1={0.5}/>)}
     </svg>
 }
 
@@ -34,21 +29,22 @@ class StarField {
     }
 
     get stars() {
-        this._signal[0]()
         return this._stars
     }
 
-    update(speed: number, dt: number) {
+    update(speed: number, now: number) {
+        const dt = now - this._lastUpdate
+        this._lastUpdate = now
+
         this._stars.forEach(star => star.update(speed, dt))
         this._stars = this._stars.filter(star => !star.isDead)
         while (this._stars.length < 10) {
             this._stars.push(new StarCore())
         }
-        this._signal[1](null)
     }
 
     private _stars: StarCore[]
-    private readonly _signal = createSignal(null, {equals: false})
+    private _lastUpdate = Date.now()
 }
 
 class StarCore {

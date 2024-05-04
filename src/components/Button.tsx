@@ -1,26 +1,22 @@
 import style from './Button.module.css'
-
-import {createSignal, JSXElement} from "solid-js";
+import {useCallback, useState} from "react";
 
 interface Props {
     value: number
     onClick: (v: number) => void
 }
 
-export default function Button(props: Props): JSXElement {
-    const [active, setActive] = createSignal(false)
+export default function Button(props: Props) {
+    const [active, setActive] = useState(false)
 
-    const activate = () => setActive(true)
-    const deactivate = () => setActive(false)
+    const activate = useCallback(() => setActive(true), [])
+    const deactivate = useCallback(() => setActive(false), [])
 
-    return <div class={style.container}>
+    return <div className={style.container}>
         <button onClick={() => props.onClick(props.value)}
                 onMouseDown={activate} onMouseUp={() => setTimeout(deactivate, 50)}
                 onTouchStart={activate} onTouchEnd={deactivate}
-                classList={{
-                    [style.button]: true,
-                    [style.active]: active()
-                }}>
+                className={`${style.button} ${active ? style.active : ""}`}>
             {props.value}
         </button>
     </div>
