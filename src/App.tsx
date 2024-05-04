@@ -19,7 +19,7 @@ export default function App() {
         gameRef.current = new Game()
     }
 
-    const answer = useCallback((v: number) => gameRef.current.answer(v), [])
+    const answer = useCallback((v: number) => gameRef.current!.answer(v), [])
 
     useEffect(() => {
         let frame: number
