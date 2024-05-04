@@ -1,4 +1,3 @@
-import {JSXElement} from "solid-js";
 import {vec2} from "./vector.ts";
 
 interface Props {
@@ -11,7 +10,7 @@ interface Props {
     r1: number
 }
 
-export function Star(props: Props): JSXElement {
+export function Star(props: Props) {
     const path = () => {
         const dn = props.p1.sub(props.p0).normalized()
         const sn = new vec2(dn.y, dn.x)

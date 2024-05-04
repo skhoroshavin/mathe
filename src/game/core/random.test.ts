@@ -15,7 +15,7 @@ describe("someInteger", () => {
     })
 
     it("someInteger(2) can only return 0 or 1", () => {
-        let values = new Set<number>()
+        const values = new Set<number>()
         for (let i = 0; i != 1000; ++i) {
             values.add(someInteger(2))
         }
@@ -26,7 +26,7 @@ describe("someInteger", () => {
     })
 
     it("someInteger(5) can only return 0, 1, 2, 3 or 4", () => {
-        let values = new Set<number>()
+        const values = new Set<number>()
         for (let i = 0; i != 1000; ++i) {
             values.add(someInteger(5))
         }
@@ -42,7 +42,7 @@ describe("someInteger", () => {
 
 describe("oneOf", () => {
     it(`oneOf(["a", "b"]) can only return "a" or "b"`, () => {
-        let values = new Set<string>()
+        const values = new Set<string>()
         for (let i = 0; i != 1000; ++i) {
             values.add(oneOf(["a", "b"]))
         }
@@ -53,7 +53,7 @@ describe("oneOf", () => {
     })
 
     it(`oneOf([2, 8, 4]) can only return 2, 4 or 8`, () => {
-        let values = new Set<number>()
+        const values = new Set<number>()
         for (let i = 0; i != 1000; ++i) {
             values.add(oneOf([2, 8, 4]))
         }

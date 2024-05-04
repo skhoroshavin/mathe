@@ -1,5 +1,5 @@
-import {Task} from "./core/task.ts";
 import {oneOf, someInteger} from "./core/random.ts";
+import {Task} from "./core/task.ts";
 
 export const createTask = (complexity: number) => {
     const realComplexity = randomizeComplexity(complexity)
@@ -14,7 +14,7 @@ const randomizeComplexity = (complexity: number): number => {
         Math.max(0, complexity),
         taskFactoryConfig.length - 1
     )
-    let possibleComplexity = [c, c, c, c]
+    const possibleComplexity = [c, c, c, c]
     if (c < taskFactoryConfig.length - 1) {
         possibleComplexity.push(c + 1)
     }

@@ -1,7 +1,7 @@
 import styles from './Display.module.css'
-
-import {JSXElement} from "solid-js";
 import Starsky from "./sky/Starsky.tsx";
+import {CSSProperties} from "react";
+import {clsx} from 'clsx';
 
 interface Props {
     task: string,
@@ -11,19 +11,16 @@ interface Props {
     now: number
 }
 
-export default function Display(props: Props): JSXElement {
-    const color = () => getColor(props.level)
+export default function Display(props: Props) {
+    const color = getColor(props.level)
 
-    return <div class={styles.container} style={{"--hud": color()}}>
-        <Starsky color={color()} speed={props.score} now={props.now}/>
-        <div classList={{
-            [styles.display]: true,
-            [styles.error]: props.hasError
-        }}>
+    return <div className={styles.container} style={{"--hud": color} as CSSProperties}>
+        <Starsky color={color} speed={props.score} now={props.now}/>
+        <div className={clsx(styles.display, props.hasError && styles.error)}>
             {props.task}
         </div>
-        <div class={`${styles.gaugeContainer} ${styles.gaugeContainerRight}`}>
-            <div class={styles.gauge} style={`height: ${props.score}%`}/>
+        <div className={styles.gaugeContainer}>
+            <div className={styles.gauge} style={{"height": `${props.score}%`}}/>
         </div>
     </div>
 }
