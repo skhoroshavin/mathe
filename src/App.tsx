@@ -2,6 +2,7 @@ import {useCallback, useEffect, useRef, useState} from 'react'
 import {Game} from "./game/game.ts";
 import Display from "./components/Display.tsx";
 import Keypad from "./components/Keypad.tsx";
+import {startRenderLoop} from "./utils/renderLoop.ts";
 
 const defaultState = {
     task: "",
@@ -14,26 +15,25 @@ const defaultState = {
 export default function App() {
     const [state, setState] = useState(defaultState)
 
-    const game = useRef(new Game())
-    const answer = useCallback((v: number) => game.current.answer(v), [])
+    const gameRef = useRef<Game>()
+    if (gameRef.current == null) {
+        gameRef.current = new Game()
+    }
+
+    const answer = useCallback((v: number) => gameRef.current!.answer(v), [])
 
     useEffect(() => {
-        let frame: number
-
-        function tick() {
-            game.current.update()
+        return startRenderLoop(now => {
+            const game = gameRef.current!
+            game.update()
             setState({
-                task: game.current.task,
-                score: game.current.score,
-                level: game.current.level,
-                error: game.current.hasError,
-                now: Date.now()
+                task: game.task,
+                score: game.score,
+                level: game.level,
+                error: game.hasError,
+                now: now
             })
-            frame = requestAnimationFrame(tick)
-        }
-
-        frame = requestAnimationFrame(tick)
-        return () => cancelAnimationFrame(frame)
+        })
     }, [])
 
     return <>

@@ -10,44 +10,49 @@ interface Props {
 }
 
 export default function Starsky(props: Props) {
-    const stars = useRef(new StarField())
+    const sceneRef = useRef<Scene>()
+    if (sceneRef.current == null) {
+        sceneRef.current = new Scene()
+    }
 
-    stars.current.update(props.speed, props.now)
+    const scene = sceneRef.current
+    scene.update(props.speed, props.now)
 
     return <svg width="100%" height="100%" viewBox="0 0 100 100"
                 className={styles.container} style={{"--star-color": props.color} as CSSProperties}>
-        {stars.current.stars.map(star => <Star color={props.color} p0={star.p} r0={0.5} p1={star.pn} r1={0.5}/>)}
+        {scene.points.map((p, i) =>
+            <Star key={i} color={props.color} p0={p.p} r0={0.5} p1={p.pn} r1={0.5}/>)}
     </svg>
 }
 
-class StarField {
+class Scene {
     constructor() {
-        this._stars = []
+        this._points = []
         for (let i = 0; i < 10; i++) {
-            this._stars.push(new StarCore())
+            this._points.push(new Point())
         }
     }
 
-    get stars() {
-        return this._stars
+    get points() {
+        return this._points
     }
 
     update(speed: number, now: number) {
         const dt = now - this._lastUpdate
         this._lastUpdate = now
 
-        this._stars.forEach(star => star.update(speed, dt))
-        this._stars = this._stars.filter(star => !star.isDead)
-        while (this._stars.length < 10) {
-            this._stars.push(new StarCore())
+        this._points.forEach(star => star.update(speed, dt))
+        this._points = this._points.filter(star => !star.isDead)
+        while (this._points.length < 10) {
+            this._points.push(new Point())
         }
     }
 
-    private _stars: StarCore[]
+    private _points: Point[]
     private _lastUpdate = Date.now()
 }
 
-class StarCore {
+class Point {
     constructor() {
         // Normalized starting position
         const np = new vec2(Math.random() - 0.5, Math.random() - 0.5)
