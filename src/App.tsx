@@ -14,19 +14,24 @@ const defaultState = {
 export default function App() {
     const [state, setState] = useState(defaultState)
 
-    const game = useRef(new Game())
-    const answer = useCallback((v: number) => game.current.answer(v), [])
+    const gameRef = useRef<Game>()
+    if (gameRef.current == null) {
+        gameRef.current = new Game()
+    }
+
+    const answer = useCallback((v: number) => gameRef.current.answer(v), [])
 
     useEffect(() => {
         let frame: number
 
         function tick() {
-            game.current.update()
+            const game = gameRef.current!
+            game.update()
             setState({
-                task: game.current.task,
-                score: game.current.score,
-                level: game.current.level,
-                error: game.current.hasError,
+                task: game.task,
+                score: game.score,
+                level: game.level,
+                error: game.hasError,
                 now: Date.now()
             })
             frame = requestAnimationFrame(tick)
