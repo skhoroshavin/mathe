@@ -15,9 +15,6 @@ const randomizeComplexity = (complexity: number): number => {
         taskFactoryConfig.length - 1
     )
     const possibleComplexity = [c, c, c, c]
-    if (c < taskFactoryConfig.length - 1) {
-        possibleComplexity.push(c + 1)
-    }
     if (c > 0) {
         possibleComplexity.push(c - 1)
         possibleComplexity.push(c - 1)
