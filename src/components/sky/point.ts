@@ -39,7 +39,7 @@ export class Point {
                 this.z = nextZ
             }
         }
-        
+
         this.updateProjection()
     }
 
@@ -59,9 +59,10 @@ export class Point {
 
 const visible = (p: vec2, z: number) => {
     if (z < 0) return false
+    // Accounting for aspect ratio up to 1:2
     if (p.x < -2) return false
     if (p.x > 2) return false
     if (p.y < -2) return false
-    if (p.y > 2) return false
-    return true
+    return p.y <= 2;
+
 }
