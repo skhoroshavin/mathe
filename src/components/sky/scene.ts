@@ -30,8 +30,8 @@ export class Scene {
     private _lastUpdate = Date.now()
 
     private _addPoint(depth: number) {
-        const x = Math.random() * 9 + 1
-        const y = Math.random() * 9 + 1
+        const x = Math.random() * 8 + 2
+        const y = Math.random() * 8 + 2
         const sign = oneOf(signVectors)
         this._points.push(new Point(this._id, new vec2(x * sign.x, y * sign.y), depth))
         this._id++

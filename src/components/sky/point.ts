@@ -1,6 +1,6 @@
 import {vec2} from "./vector.ts";
 
-const focalLength = 1
+const focalLength = 0.3
 const motionBlurMilliseconds = 100
 
 export class Point {
@@ -12,22 +12,11 @@ export class Point {
         this.prevZ = z
         this.prevDT = 0
 
-        this.project()
+        this.updateProjection()
     }
 
     isVisible() {
-        if ((this.z < 0) && (this.prevZ < 0)) {
-            return false
-        }
-        if (((this.p0.x < -1) || (this.p0.x > 1)) &&
-            ((this.p1.x < -1) || (this.p1.x > 1))) {
-            return false
-        }
-        if (((this.p0.y < -1) || (this.p0.y > 1)) &&
-            ((this.p1.y < -1) || (this.p1.y > 1))) {
-            return false
-        }
-        return true
+        return visible(this.p0, this.z) || visible(this.p1, this.prevZ)
     }
 
     move(speed: number, dt: number) {
@@ -50,12 +39,12 @@ export class Point {
         this.prevDT = motionBlurMilliseconds
         this.z = nextZ
 
-        this.project()
+        this.updateProjection()
     }
 
-    private project() {
-        this.p0 = this.xy.mul(focalLength / (focalLength + this.z))
-        this.p1 = this.xy.mul(focalLength / (focalLength + this.prevZ))
+    private updateProjection() {
+        this.p0 = this.xy.mul(focalLength / (focalLength + Math.max(0, this.z)))
+        this.p1 = this.xy.mul(focalLength / (focalLength + Math.max(0, this.prevZ)))
     }
 
     id: number
@@ -65,4 +54,13 @@ export class Point {
     private z: number
     private prevZ: number
     private prevDT: number
+}
+
+const visible = (p: vec2, z: number) => {
+    if (z < 0) return false
+    if (p.x < -2) return false
+    if (p.x > 2) return false
+    if (p.y < -2) return false
+    if (p.y > 2) return false
+    return true
 }
