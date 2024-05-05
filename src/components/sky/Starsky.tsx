@@ -16,8 +16,8 @@ export default function Starsky(props: Props) {
     }
 
     const scene = sceneRef.current
-    scene.update(0.0001 * props.speed, props.now)
-
+    scene.update(0.0001 * props.speed, props.now, false)
+    
     return <svg width="100%" height="100%" viewBox="-1 -1 2 2"
                 className={styles.container} style={{"--star-color": props.color} as CSSProperties}>
         {scene.points().map(

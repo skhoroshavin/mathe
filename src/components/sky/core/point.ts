@@ -19,27 +19,33 @@ export class Point {
         return visible(this.p0, this.z) || visible(this.p1, this.prevZ)
     }
 
-    move(speed: number, dt: number) {
+    move(speed: number, dt: number, hyperspace: boolean) {
         const nextZ = this.z - speed * dt
 
-        // Time passed is higher than motion blur time - just draw at full motion blur length
-        if (dt > motionBlurMilliseconds) {
+        // In hyperspace mode we just grow the star tracks
+        if (hyperspace) {
             this.z = nextZ
-            this.prevZ = nextZ + speed * motionBlurMilliseconds
             this.prevDT = motionBlurMilliseconds
         } else {
-            // Remaining time required for motion blur calculation
-            const remainingDT = motionBlurMilliseconds - dt
-            if (remainingDT > this.prevDT) {
+            // Time passed is higher than motion blur time - just draw at full motion blur length
+            if (dt > motionBlurMilliseconds) {
                 this.z = nextZ
-                this.prevDT += dt
-            } else {
-                this.prevZ = this.z + (this.prevZ - this.z) * (remainingDT / this.prevDT)
+                this.prevZ = nextZ + speed * motionBlurMilliseconds
                 this.prevDT = motionBlurMilliseconds
-                this.z = nextZ
+            } else {
+                // Remaining time required for motion blur calculation
+                const remainingDT = motionBlurMilliseconds - dt
+                if (remainingDT > this.prevDT) {
+                    this.z = nextZ
+                    this.prevDT += dt
+                } else {
+                    this.prevZ = this.z + (this.prevZ - this.z) * (remainingDT / this.prevDT)
+                    this.prevDT = motionBlurMilliseconds
+                    this.z = nextZ
+                }
             }
         }
-
+        
         this.updateProjection()
     }
 
