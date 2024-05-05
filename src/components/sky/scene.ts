@@ -4,10 +4,7 @@ import {oneOf} from "../../game/core/random.ts";
 
 export class Scene {
     constructor() {
-        this._points = []
-        for (let i = 0; i < 10; i++) {
-            this._addPoint(Math.random() * 10)
-        }
+        this._addPoints()
     }
 
     points() {
@@ -17,24 +14,28 @@ export class Scene {
     update(speed: number, now: number) {
         const dt = now - this._lastUpdate
         this._lastUpdate = now
+        this._pointsNeeded += speed * dt
 
         this._points.forEach(pt => pt.move(speed, dt))
         this._points = this._points.filter(pt => pt.isVisible())
-        if (this._points.length < 10) {
-            this._addPoint(10)
-        }
+        this._addPoints()
     }
 
-    private _points: Point[]
+    private _points: Point[] = []
     private _id = 0
+    private _pointsNeeded = 10
     private _lastUpdate = Date.now()
 
-    private _addPoint(depth: number) {
-        const x = Math.random() * 8 + 2
-        const y = Math.random() * 8 + 2
-        const sign = oneOf(signVectors)
-        this._points.push(new Point(this._id, new vec2(x * sign.x, y * sign.y), depth))
-        this._id++
+    private _addPoints() {
+        while (this._pointsNeeded > 1) {
+            const x = Math.random() * 8 + 2
+            const y = Math.random() * 8 + 2
+            const sign = oneOf(signVectors)
+            const depth = 10 - Math.floor(this._pointsNeeded) - Math.random()
+            this._points.push(new Point(this._id, new vec2(x * sign.x, y * sign.y), depth))
+            this._id++
+            this._pointsNeeded -= 1
+        }
     }
 }
 
