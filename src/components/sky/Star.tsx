@@ -12,15 +12,18 @@ interface Props {
 
 export function Star(props: Props) {
     const path = () => {
-        const dn = props.p1.sub(props.p0).normalized()
-        const sn = new vec2(dn.y, dn.x)
-        const s0 = sn.mul(props.r0 / 2)
-        const s1 = sn.mul(props.r1 / 2)
+        const dn = props.p0.normalized()
+        const p0 = props.p0.add(dn.mul(0.5 * props.r0))
+        const p1 = props.p1.add(dn.mul(-0.5 * props.r1))
 
-        const v0 = props.p0.sub(s0).toString()
-        const v1 = props.p0.add(s0).toString()
-        const v2 = props.p1.add(s1).toString()
-        const v3 = props.p1.sub(s1).toString()
+        const sn = new vec2(-dn.y, dn.x)
+        const s0 = sn.mul(0.5 * props.r0)
+        const s1 = sn.mul(0.5 * props.r1)
+
+        const v0 = p0.sub(s0).toString()
+        const v1 = p0.add(s0).toString()
+        const v2 = p1.add(s1).toString()
+        const v3 = p1.sub(s1).toString()
 
         return `M ${v0} L ${v1} L ${v2} L ${v3} L ${v0}`
     }
