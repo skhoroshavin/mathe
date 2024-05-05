@@ -1,7 +1,7 @@
 import styles from './Starsky.module.css'
 import {CSSProperties, useRef} from "react";
 import {Star} from "./Star.tsx";
-import {Scene} from "./scene.ts";
+import {Scene} from "./core/scene.ts";
 
 interface Props {
     color: string

@@ -1,6 +1,6 @@
 import {Point} from "./point.ts";
 import {vec2} from "./vector.ts";
-import {oneOf} from "../../game/core/random.ts";
+import {oneOf} from "../../../game/core/random.ts";
 
 export class Scene {
     constructor() {

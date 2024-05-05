@@ -1,4 +1,4 @@
-import {vec2} from "./vector.ts";
+import {vec2} from "./core/vector.ts";
 
 interface Props {
     color: string
