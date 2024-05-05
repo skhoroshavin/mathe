@@ -21,24 +21,25 @@ export class Point {
 
     move(speed: number, dt: number) {
         const nextZ = this.z - speed * dt
+
+        // Time passed is higher than motion blur time - just draw at full motion blur length
         if (dt > motionBlurMilliseconds) {
             this.z = nextZ
             this.prevZ = nextZ + speed * motionBlurMilliseconds
             this.prevDT = motionBlurMilliseconds
-            return
+        } else {
+            // Remaining time required for motion blur calculation
+            const remainingDT = motionBlurMilliseconds - dt
+            if (remainingDT > this.prevDT) {
+                this.z = nextZ
+                this.prevDT += dt
+            } else {
+                this.prevZ = this.z + (this.prevZ - this.z) * (remainingDT / this.prevDT)
+                this.prevDT = motionBlurMilliseconds
+                this.z = nextZ
+            }
         }
-
-        const oldDT = motionBlurMilliseconds - dt
-        if (oldDT > this.prevDT) {
-            this.z = nextZ
-            this.prevDT += dt
-            return
-        }
-
-        this.prevZ = this.z + (this.prevZ - this.z) * (oldDT / this.prevDT)
-        this.prevDT = motionBlurMilliseconds
-        this.z = nextZ
-
+        
         this.updateProjection()
     }
 
