@@ -26,7 +26,7 @@ export class Game {
     }
 
     get inHyperspace(): boolean {
-        return (this._lastUpdate - this._inHyperspace) < 5000
+        return (this._lastUpdate - this._inHyperspace) < 7000
     }
 
     answer(value: number) {
