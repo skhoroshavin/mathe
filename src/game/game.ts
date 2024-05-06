@@ -4,6 +4,9 @@ import {createTask} from "./create_task.ts";
 
 export class Game {
     get task(): string {
+        if (this.inHyperspace) {
+            return ""
+        }
         return this._task.text()
     }
 
@@ -12,6 +15,9 @@ export class Game {
     }
 
     get score(): number {
+        if (this.inHyperspace) {
+            return 100 + (this._lastUpdate - this._inHyperspace) / 25
+        }
         return this._score.get()
     }
 
@@ -19,11 +25,20 @@ export class Game {
         return (this._lastUpdate - this._hasError) < 500
     }
 
+    get inHyperspace(): boolean {
+        return (this._lastUpdate - this._inHyperspace) < 5000
+    }
+
     answer(value: number) {
+        if (this.inHyperspace) {
+            return
+        }
+
         switch (this._task.input(value)) {
             case TaskResult.Done: {
                 this._score.addCorrect()
                 if (this._score.get() >= 100) {
+                    this._inHyperspace = Date.now()
                     this._score.reset()
                     if (this._complexity < 16) {
                         this._complexity += 1
@@ -57,4 +72,5 @@ export class Game {
     private _complexity = 0
     private _score = new Score()
     private _hasError = 0
+    private _inHyperspace = 0
 }

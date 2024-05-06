@@ -8,6 +8,7 @@ interface Props {
     score: number,
     level: number,
     hasError: boolean,
+    inHyperspace: boolean,
     now: number
 }
 
@@ -15,12 +16,12 @@ export default function Display(props: Props) {
     const color = getColor(props.level)
 
     return <div className={styles.container} style={{"--hud": color} as CSSProperties}>
-        <Starsky color={color} speed={props.score} now={props.now}/>
+        <Starsky color={color} speed={props.score} inHyperspace={props.inHyperspace} now={props.now}/>
         <div className={clsx(styles.display, props.hasError && styles.error)}>
             {props.task}
         </div>
         <div className={styles.gaugeContainer}>
-            <div className={styles.gauge} style={{"height": `${props.score}%`}}/>
+            <div className={styles.gauge} style={{"height": `${Math.min(100, props.score)}%`}}/>
         </div>
     </div>
 }

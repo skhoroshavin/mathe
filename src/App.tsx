@@ -9,6 +9,7 @@ const defaultState = {
     score: 0,
     level: 0,
     error: false,
+    hyperspace: false,
     now: Date.now()
 }
 
@@ -31,13 +32,15 @@ export default function App() {
                 score: game.score,
                 level: game.level,
                 error: game.hasError,
+                hyperspace: game.inHyperspace,
                 now: now
             })
         })
     }, [])
 
     return <>
-        <Display task={state.task} score={state.score} level={state.level} hasError={state.error} now={state.now}/>
+        <Display task={state.task} score={state.score} level={state.level}
+                 hasError={state.error} inHyperspace={state.hyperspace} now={state.now}/>
         <Keypad onClick={answer}/>
     </>
 }
