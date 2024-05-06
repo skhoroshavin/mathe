@@ -1,7 +1,7 @@
 import {vec2} from "./vector.ts";
 
 const focalLength = 0.3
-const motionBlurMilliseconds = 60
+const motionBlurMilliseconds = 30
 
 export class Point {
     constructor(id: number, xy: vec2, z: number) {
@@ -45,7 +45,7 @@ export class Point {
                 }
             }
         }
-        
+
         this.updateProjection()
     }
 
