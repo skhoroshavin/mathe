@@ -18,7 +18,7 @@ export default function Button({value, onClick}: Props) {
             onClick(value)
             deactivate()
         }
-    }, [activate, deactivate, value])
+    }, [activate, deactivate, onClick, value])
 
     useEffect(() => {
         document.addEventListener("keydown", onKeyDown)
