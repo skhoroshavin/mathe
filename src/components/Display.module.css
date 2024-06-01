@@ -14,7 +14,7 @@
 
     font-size: 5rem;
     color: var(--hud);
-    text-shadow: var(--hud) 0 0 2rem, var(--hud) 0 0 4rem, var(--hud) 0 0 8rem, var(--hud) 0 0 12rem;
+    text-shadow: var(--hud) 0 0 1rem;
 
     transition: all 200ms ease-in-out;
 }

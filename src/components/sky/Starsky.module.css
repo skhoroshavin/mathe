@@ -4,5 +4,5 @@
     position: absolute;
     z-index: -1;
 
-    filter: drop-shadow(var(--star-color) 0 0 2px) drop-shadow(var(--star-color) 0 0 4px);
+    filter: drop-shadow(var(--star-color) 0 0 1px);
 }
